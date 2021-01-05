@@ -12,6 +12,7 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+import net.sf.jsqlparser.expression.operators.hierarchical.ConnectByRootExpression;
 import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.AllColumns;
@@ -554,5 +555,10 @@ public class ExpressionVisitorAdapter implements ExpressionVisitor, ItemsListVis
         for (OrderByElement elm : expr.getOrderByElements()) {
             elm.getExpression().accept(this);
         }
+    }
+
+    @Override
+    public void visit(ConnectByRootExpression aThis) {
+        aThis.accept(this);
     }
 }

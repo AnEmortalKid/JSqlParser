@@ -11,8 +11,8 @@
 options {
     IGNORE_CASE = true;
     STATIC = false;
-    DEBUG_PARSER = false;
-    DEBUG_LOOKAHEAD = false;
+    DEBUG_PARSER = true;
+    DEBUG_LOOKAHEAD = true;
     DEBUG_TOKEN_MANAGER = false;
     CACHE_TOKENS = false;
 //  FORCE_LA_CHECK = true;
@@ -33,6 +33,7 @@ package net.sf.jsqlparser.parser;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.*;
+import net.sf.jsqlparser.expression.operators.hierarchical.*;
 import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.*;
 import net.sf.jsqlparser.statement.*;
@@ -157,6 +158,7 @@ TOKEN: /* SQL Keywords. prefixed with K_ to avoid name clashes */
 |   <K_COMMIT:"COMMIT">
 |   <K_COMMENT:"COMMENT">
 |   <K_CONNECT:"CONNECT">
+|   <K_CONNECT_BY_ROOT:"CONNECT_BY_ROOT">
 |   <K_CONSTRAINT:"CONSTRAINT">
 |   <K_COSTS: "COSTS">
 |   <K_CREATE:"CREATE">
@@ -2614,6 +2616,7 @@ Expression Condition():
     (
         LOOKAHEAD(RegularCondition()) result=RegularCondition()
         | result=SQLCondition()
+        | result=ConnectByRootExpression()
         //| result=SimpleExpression()
     )
 
@@ -5108,6 +5111,18 @@ CreateFunctionalStatement CreateFunctionStatement():
     }
 
     return type;
+  }
+}
+
+Expression ConnectByRootExpression() #ConnectByRootExpression:
+{
+  Expression result;
+  Token token;
+}
+{
+  <K_CONNECT_BY_ROOT> token=<S_IDENTIFIER> { result = new ConnectByRootExpression(token.image); }
+  {
+    return result;
   }
 }
 

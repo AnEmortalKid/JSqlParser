@@ -12,6 +12,7 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+import net.sf.jsqlparser.expression.operators.hierarchical.ConnectByRootExpression;
 import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.SubSelect;
@@ -161,4 +162,6 @@ public interface ExpressionVisitor {
     public void visit(VariableAssignment aThis);
 
     public void visit(XMLSerializeExpr aThis);
+
+    void visit(ConnectByRootExpression aThis);
 }

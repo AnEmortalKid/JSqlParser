@@ -55,6 +55,7 @@ import net.sf.jsqlparser.expression.XMLSerializeExpr;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+import net.sf.jsqlparser.expression.operators.hierarchical.ConnectByRootExpression;
 import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
@@ -902,5 +903,10 @@ public class TablesNamesFinder implements SelectVisitor, FromItemVisitor, Expres
 
     @Override
     public void visit(XMLSerializeExpr aThis) {
+    }
+
+    @Override
+    public void visit(ConnectByRootExpression aThis) {
+        throw new UnsupportedOperationException("Finding tables from ConnectByRootExpression is not supported");
     }
 }

@@ -69,6 +69,7 @@ import net.sf.jsqlparser.expression.operators.arithmetic.Multiplication;
 import net.sf.jsqlparser.expression.operators.arithmetic.Subtraction;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+import net.sf.jsqlparser.expression.operators.hierarchical.ConnectByRootExpression;
 import net.sf.jsqlparser.expression.operators.relational.Between;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExistsExpression;
@@ -925,5 +926,10 @@ public class ExpressionDeParser extends AbstractDeParser<Expression>
             }
         }
         buffer.append(") AS ").append(expr.getDataType()).append(")");
+    }
+
+    @Override
+    public void visit(ConnectByRootExpression aThis) {
+        // TODO
     }
 }
